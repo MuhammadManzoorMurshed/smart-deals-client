@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: blue;
+  --color-secondary: teal;
+}
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+  --gradient-primary: linear-gradient(to right, #632EE3, #9F62F2);
+  --gradient-secondary: linear-gradient(to bottom right, #FFE6FD, #E0F8F5);
+  --gradient-with-opacity: linear-gradient(to bottom right, #632EE326,
+    #9F62F226);
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-secondary {
+  background: var(--gradient-secondary);
+}
+
+.bg-gradient-with-opacity {
+  background: var(--gradient-with-opacity);
+}
+
+.border-gradient {
+  border-color: transparent;
+  background: linear-gradient(white, white) padding-box, var(--gradient-primary) border-box;
+}
+
+.active {
+  color: var(--color-primary);
+  background: var(--gradient-secondary);
+}
+
+select:has(option[value=""]:checked) {
+  color: #00193180;
+}
+
+select {
+  color: #001931;
+}
