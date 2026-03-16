@@ -29,6 +29,12 @@ const router = createBrowserRouter([
   {
     path: '/',
     Component: RootLayout,
+    errorElement: ( // ✅ এটা যোগ করুন
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-2xl font-bold text-red-500">Something went wrong!</h1>
+        <a href="/" className="mt-4 text-blue-500 underline">Go back home</a>
+      </div>
+    ),
     children: [
       {
         index: true,
@@ -41,7 +47,17 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'product-details/:id',
-            loader: ({ params }) => fetch(`https://smart-deals-server-three.vercel.app/products/${params.id}`),
+            errorElement: ( // ✅ এখানেও যোগ করুন
+              <div className="p-10 text-center">
+                <h2 className="text-xl font-bold">Product not found!</h2>
+                <a href="/all-products" className="text-blue-500 underline">Back to products</a>
+              </div>
+            ),
+            loader: async ({ params }) => {
+              const res = await fetch(`https://smart-deals-server-three.vercel.app/products/${params.id}`);
+              if (!res.ok) throw new Error(`Product not found: ${res.status}`);
+              return res.json();
+          },
             Component: ProductDetails
           }
         ]
